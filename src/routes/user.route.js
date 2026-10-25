@@ -1,10 +1,8 @@
+// src/routes/user.route.js
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/user.controller');
 
-router.get('/', (req, res) => {
-  res.json({
-    message: 'Get all users route working'
-  });
-});
+router.get('/', userController.getAllUsers);
 
 module.exports = router;
