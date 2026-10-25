@@ -1,20 +1,17 @@
+// src/app.js
 const express = require('express');
-const cors = require('cors');
-const userRoutes = require('./routes/user.route');
-
 const app = express();
 
-// middlewares
-app.use(cors());
+// JSON body parsing
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// root route
-app.get('/', (req, res) => {
-  res.json({ message: 'Server is running' });
-});
-
-// user routes
+// Routes
+const userRoutes = require('./routes/user.route');
 app.use('/api/users', userRoutes);
+
+// Optional: 404 handler (for undefined routes under /api/users as well)
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Not Found' });
+});
 
 module.exports = app;
